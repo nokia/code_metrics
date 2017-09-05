@@ -1,0 +1,73 @@
+[GerritServer]
+########################################################################################################################
+host = xxx
+port = xxx
+username = xxx
+
+[GerritQuerySearchOperator]
+########################################################################################################################
+# Search operators of Gerrit query, <operator name> = <operator value>
+# eg:
+#    project: code_metrics    ==>   project = code_metrics
+#    limit:1                  ==>   limit = 1
+# note:
+#    "lastdays": get last xxx days data
+#     eg: lastdays=1 ==> it equals to "after:current time - 1 day"
+#
+########################################################################################################################
+parentproject = xxx
+status = merged
+before = 2017-08-30 00:00:00
+after = 2017-08-20 00:00:00
+branch = master
+#limit = 2
+
+[FileMetrics]
+########################################################################################################################
+# mandatory_columns : Metric columns which are calculated by default. It can not be configured.
+# optional_columns  : Metric columns which are caculated from 'subject' value. Each item has corresponding regex in
+#                     [SubjectRegex]. It can be configured.
+# filter_owner_comments : owner's comment is not calculated by default
+#                         to enable it, change its value to "False"
+########################################################################################################################
+mandatory_columns = project, file, modification_times, modification_lines, owners_num, owners, comments_num, comments
+optional_columns = fc_us_num, fc_us_title, jr_num, jr_title, iwi_num, iwi_title, pr_num, pr_title, internal_pr_num, customer_pr_num
+filter_owner_comments = True
+
+[SubjectMetrics]
+########################################################################################################################
+mandatory_columns = number, url, title, files_num, files, modification_lines, insertions, deletions,  comments_num, ta_modification_lines, ta_insertions, ta_deletions, comments, reviewers_num, reviewers, last_updated
+optional_columns = fc_us, pr, iwi, jr
+filter_owner_comments = True
+
+
+[SubjectRegex]
+########################################################################################################################
+# Below is the regex for subject value
+# <column key> = <column regex>
+#
+########################################################################################################################
+fc_us_num = %(TBC|FIN|WIP|DONE) (FC|US):
+jr_num = %(TBC|FIN|WIP|DONE) JR:
+iwi_num = %(TBC|FIN|WIP|DONE) IWI:
+pr_num = %(TBC|FIN|WIP|DONE) PR:
+internal_pr_num = %(TBC|FIN|WIP|DONE) PR:(\s?|\s+)PR\d+
+customer_pr_num = %(TBC|FIN|WIP|DONE) PR:(\s?|\s+)(NA|CAS)\d+
+
+fc_us_title = %(TBC|FIN|WIP|DONE) (FC|US):(\s)*(?P<fc_us_title>.*)(Change-Id|%PP|%CR)?
+jr_title = %(TBC|FIN|WIP|DONE) JR:(\s)*(?P<jr_title>.*)(Change-Id|%PP|%CR)?
+iwi_title = %(TBC|FIN|WIP|DONE) IWI:(\s)*(?P<iwi_title>.*)(Change-Id|%PP|%CR)?
+pr_title = %(TBC|FIN|WIP|DONE) PR:(\s)*(?P<pr_title>.*)(Change-Id|%PP|%CR)?
+
+type = %(TBC|FIN|WIP|DONE)\s+(?P<type>(FC|US|PR|IWI|JR)?):
+title = %(TBC|FIN|WIP|DONE)\s+(FC|US|PR|IWI|JR):(\s)*(?P<title>.*)
+title_id = %(TBC|FIN|WIP|DONE)\s+(FC|US|PR|IWI|JR)?:\s*(?P<title_id>(\w|-|\[|\])+)
+
+
+[CommonRegex]
+########################################################################################################################
+# Below is the regex for some common use
+# <column key> = <column regex>
+#
+########################################################################################################################
+file_to_filter = (\/COMMIT_MSG)
