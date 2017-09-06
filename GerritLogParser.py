@@ -22,7 +22,7 @@ class GerritLogParser(object):
         """
         logging.info("Start to init GerritLogParser...")
         self.config = ConfigParser.RawConfigParser()
-        self.config.read(os.path.join(os.path.abspath(os.path.dirname(__file__))) + os.sep + 'config')
+        self.config.read(os.path.join(os.path.abspath(os.path.dirname(__file__))) + os.sep + 'Config')
 
         self.re_subject = {}
         for (column, regex) in self.config.items("SubjectRegex"):
