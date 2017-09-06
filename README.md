@@ -12,7 +12,7 @@ python2.7, pygerrit, pandas.
         gp.compute_file_metrics().to_csv("file_metrics.csv", encoding='utf-8')
         gp.compute_subject_metrics().to_csv("subject_metrics.csv", encoding='utf-8')
 
-**config** : Configuration file read by GerritLogParser.py. Take file metrics for example:
+**Config** : Configuration file read by GerritLogParser.py. Take file metrics for example:
 * [GerritServer]: Gerrit server info
 
       [GerritServer]
