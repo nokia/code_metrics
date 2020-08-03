@@ -46,3 +46,8 @@ python2.7, pygerrit, pandas.
       jr_num = %(TBC|FIN|WIP|DONE) JR:
       iwi_num = %(TBC|FIN|WIP|DONE) IWI:
       ...
+
+
+## License
+
+This project is licensed under the BSD-3-Clause license - see the [LICENSE](https://github.com/nokia/code_metrics/blob/master/LICENSE).
